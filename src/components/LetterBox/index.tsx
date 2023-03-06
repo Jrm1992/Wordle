@@ -4,10 +4,16 @@ import { Box } from './style';
 
 export default function LetterBox({
   Letter,
-  CurrentBox
+  CurrentBox,
+  BGColor
 }: {
   Letter: string;
   CurrentBox: boolean;
+  BGColor: string | undefined;
 }) {
-  return <Box Active={CurrentBox}>{Letter.toUpperCase()}</Box>;
+  return (
+    <Box isActive={CurrentBox} BGColor={BGColor}>
+      {Letter.toUpperCase()}
+    </Box>
+  );
 }
