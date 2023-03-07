@@ -6,17 +6,17 @@ import { Container, Text } from './style';
 import { useNavigation } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 
-export default function NewGame() {
+export default function TryAgain() {
   const { navigate } = useNavigation();
   return (
     <Container>
       <LottieView
-        source={require('.././../../assets/you-win.json')}
+        source={require('.././../../assets/try-again.json')}
         autoPlay
         loop={false}
       />
       <TouchableOpacity onPress={() => navigate('home')}>
-        <Text>New Game</Text>
+        <Text>Try Again</Text>
       </TouchableOpacity>
     </Container>
   );
