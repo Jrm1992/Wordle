@@ -6,8 +6,9 @@
   </p>
   
   <br />
-
-    <img src=".github\howtoplay.png">
+  
+  <p align="left">
+    <img src=".github\howtoplay.png" >
        <br />
 
 
