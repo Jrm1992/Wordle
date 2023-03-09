@@ -6,11 +6,9 @@
   </p>
   
   <br />
-  <p align="center">
+
     <img src=".github\howtoplay.png">
        <br />
-    <br />
-  </p>
 
 
   # Techs:
