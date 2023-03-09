@@ -4,9 +4,14 @@
        <br />
     <br />
   </p>
+  
+  <br />
+  <p align="center">
+    <img src=".github\howtoplay.png">
+       <br />
+    <br />
+  </p>
 
-  # <a target="_blank" href="https://jrm1992-pomodoro.netlify.app/">Live Demo</a>
- 
 
   # Techs:
 
