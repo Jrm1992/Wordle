@@ -1,6 +1,6 @@
 <br />
   <p align="center">
-    <img src="github\cover.jpg">
+    <img src=".github\cover.jpg">
        <br />
     <br />
   </p>
