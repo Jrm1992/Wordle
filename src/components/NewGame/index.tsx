@@ -1,13 +1,13 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 
-import { Container, Text } from './style';
+import { Button, Container, Text } from './style';
 
 import { useNavigation } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 
 export default function NewGame() {
   const { navigate } = useNavigation();
+
   return (
     <Container>
       <LottieView
@@ -15,9 +15,13 @@ export default function NewGame() {
         autoPlay
         loop={false}
       />
-      <TouchableOpacity onPress={() => navigate('home')}>
+      <LottieView
+        source={require('.././../../assets/firecracker.json')}
+        autoPlay
+      />
+      <Button onPress={() => navigate('home')}>
         <Text>New Game</Text>
-      </TouchableOpacity>
+      </Button>
     </Container>
   );
 }

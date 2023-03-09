@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "7daysofcodewordle",
-    "slug": "7daysofcodewordle",
+    "name": "Wordle",
+    "slug": "wordle",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,18 +11,28 @@
       "resizeMode": "contain",
       "backgroundColor": "#000000"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.jose1992.wordle"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#000000"
-      }
+      },
+      "package": "com.jose1992.wordle"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "bea713d6-8eb2-4dbd-9907-3fe2d6bab5b8"
+      }
+    },
+    "owner": "jose1992"
   }
 }

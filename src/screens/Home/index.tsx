@@ -9,10 +9,10 @@ import { useFocusEffect } from '@react-navigation/native';
 export default function Home() {
   const [word, setWord] = useState('teste');
 
-  async function getWord() {
-    const countWords = Words.words.length;
+  function getWord() {
+    const countWords = Words.en.length;
     const shuffleIndex: number = Math.floor(Math.random() * countWords);
-    setWord(Words.words[shuffleIndex]);
+    setWord(Words.en[shuffleIndex]);
   }
 
   useFocusEffect(

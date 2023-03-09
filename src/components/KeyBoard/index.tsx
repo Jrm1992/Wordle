@@ -1,9 +1,10 @@
 import React from 'react';
-import { Text } from 'react-native';
 
-import { Box, Col, Container, Row } from './style';
+import { Box, Col, Container, Row, Text } from './style';
 
-export default function KeyBoard({ onKeyPress }) {
+import { Backspace } from 'phosphor-react-native';
+
+export default function KeyBoard({ onKeyPress }: any) {
   const keyBoard = [
     ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
     ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
@@ -22,7 +23,13 @@ export default function KeyBoard({ onKeyPress }) {
                     key={sIndex}
                     activeOpacity={0.7}
                   >
-                    <Text>{subItems}</Text>
+                    <Text>
+                      {subItems === 'CLEAR' ? (
+                        <Backspace size={20} weight="bold" />
+                      ) : (
+                        subItems
+                      )}
+                    </Text>
                   </Box>
                 );
               })}

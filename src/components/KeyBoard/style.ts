@@ -2,8 +2,10 @@ import styled from 'styled-components/native';
 
 export const Box = styled.TouchableOpacity`
   background-color: #818384;
+  min-width: 36px;
+  height: 46px;
   margin: 1px;
-  padding: 12px;
+  padding: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,4 +29,8 @@ export const Col = styled.View`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+export const Text = styled.Text`
+  font-size: 18px;
 `;

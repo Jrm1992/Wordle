@@ -8,13 +8,16 @@ export const Container = styled.SafeAreaView`
 `;
 
 export const Text = styled.Text`
+  color: black;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+`;
+
+export const Button = styled.TouchableOpacity`
   background-color: #000;
   margin: 0 20px 40px 20px;
   border-radius: 20px;
   padding: 20px;
   background-color: yellow;
-  color: black;
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
 `;
