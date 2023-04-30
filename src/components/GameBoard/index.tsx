@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import Header from '../Header';
 import KeyBoard from '../KeyBoard';
-import { Board, Col, Container, Row, LetterBox } from './style';
+import { Board, Col, Container, LetterBox, Row } from './style';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -12,7 +12,13 @@ const copyArray = (arr: string[][]) => {
   return [...arr.map((rows) => [...rows])];
 };
 
-export default function GameBoard({ Word }: { Word: string }) {
+export default function GameBoard({
+  Word,
+  setGameId
+}: {
+  Word: string;
+  setGameId: () => void;
+}) {
   const { navigate } = useNavigation();
 
   console.log(Word);
@@ -48,6 +54,7 @@ export default function GameBoard({ Word }: { Word: string }) {
     if (key === 'ENTER') {
       if (rows[curRow].join('').toUpperCase() === Word.toUpperCase()) {
         setCurRow(curRow + 1);
+        setGameId();
         navigate('postgame', { status: 'youwin' });
         return;
       }

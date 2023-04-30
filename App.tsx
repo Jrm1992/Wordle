@@ -1,16 +1,16 @@
 import React from 'react';
-import { View } from 'react-native';
 
 import { Loading } from './src/components/Loading';
 
+import { AuthContextProvider } from './src/context/AuthContext';
 import { Routes } from './src/routes';
 
 import {
-  useFonts,
   Inter_400Regular,
   Inter_600SemiBold,
   Inter_700Bold,
-  Inter_800ExtraBold
+  Inter_800ExtraBold,
+  useFonts
 } from '@expo-google-fonts/inter';
 import { StatusBar } from 'expo-status-bar';
 
@@ -26,9 +26,9 @@ export default function App() {
     return <Loading />;
   }
   return (
-    <View>
+    <AuthContextProvider>
       <Routes />
       <StatusBar translucent backgroundColor="transparent" style="light" />
-    </View>
+    </AuthContextProvider>
   );
 }
