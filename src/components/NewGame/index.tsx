@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 
 import { Button, Container, Text } from './style';
 
@@ -14,10 +15,13 @@ export default function NewGame() {
         source={require('.././../../assets/you-win.json')}
         autoPlay
         loop={false}
+        style={{ flex: 1, width: '100%' }}
       />
       <LottieView
         source={require('.././../../assets/firecracker.json')}
         autoPlay
+        style={StyleSheet.absoluteFill}
+        pointerEvents="none"
       />
       <Button onPress={() => navigate('home')}>
         <Text>New Game</Text>

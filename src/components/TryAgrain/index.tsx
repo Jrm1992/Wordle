@@ -14,6 +14,7 @@ export default function TryAgain() {
         source={require('.././../../assets/try-again.json')}
         autoPlay
         loop={false}
+        style={{ flex: 1, width: '100%' }}
       />
       <TouchableOpacity onPress={() => navigate('home')}>
         <Text>Try Again</Text>
