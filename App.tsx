@@ -1,8 +1,6 @@
 import React from 'react';
 
 import { Loading } from './src/components/Loading';
-
-import { AuthContextProvider } from './src/context/AuthContext';
 import { Routes } from './src/routes';
 
 import {
@@ -13,6 +11,7 @@ import {
   useFonts
 } from '@expo-google-fonts/inter';
 import { StatusBar } from 'expo-status-bar';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -26,9 +25,9 @@ export default function App() {
     return <Loading />;
   }
   return (
-    <AuthContextProvider>
+    <SafeAreaProvider>
       <Routes />
       <StatusBar translucent backgroundColor="transparent" style="light" />
-    </AuthContextProvider>
+    </SafeAreaProvider>
   );
 }
