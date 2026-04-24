@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Text, View, useWindowDimensions } from 'react-native';
 
 import Header from '../Header';
-import KeyBoard from '../KeyBoard';
-import { Board, Col, Container, LetterBox, Row } from './style';
+import KeyBoard, { LetterState } from '../KeyBoard';
+import { Board, Col, Container, Row } from './style';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -10,6 +11,25 @@ const NUMBER_OF_TRIES = 6;
 
 const copyArray = (arr: string[][]) => {
   return [...arr.map((rows) => [...rows])];
+};
+
+function getCellColor(
+  letter: string,
+  col: number,
+  letters: string[]
+): LetterState {
+  if (!letter) return 'empty';
+  const L = letter.toUpperCase();
+  if (L === letters[col]?.toUpperCase()) return 'correct';
+  if (letters.map((l) => l.toUpperCase()).includes(L)) return 'present';
+  return 'absent';
+}
+
+const BG: Record<LetterState, string> = {
+  empty: '#121213',
+  correct: '#538D4E',
+  present: '#B59F3B',
+  absent: '#3A3A3C'
 };
 
 export default function GameBoard({
@@ -20,14 +40,13 @@ export default function GameBoard({
   setGameId: () => void;
 }) {
   const { navigate } = useNavigation();
-
-  console.log(Word);
+  const { width } = useWindowDimensions();
 
   const letters = Word.split('');
 
   const [curRow, setCurRow] = useState(0);
   const [curCol, setCurCol] = useState(0);
-  const [rows, setRows] = useState(
+  const [rows, setRows] = useState<string[][]>(
     new Array(NUMBER_OF_TRIES).fill(new Array(letters.length).fill(''))
   );
 
@@ -38,6 +57,30 @@ export default function GameBoard({
     setCurCol(0);
     setCurRow(0);
   }, [Word]);
+
+  const tileSize = Math.min(
+    62,
+    Math.floor((width - 16 - (letters.length - 1) * 6 - 16) / letters.length)
+  );
+
+  const keyStates = useMemo(() => {
+    const map: Record<string, LetterState> = {};
+    for (let r = 0; r < curRow; r++) {
+      for (let c = 0; c < rows[r].length; c++) {
+        const L = rows[r][c]?.toUpperCase();
+        if (!L) continue;
+        const state = getCellColor(L, c, letters);
+        const prev = map[L];
+        if (
+          prev !== 'correct' &&
+          !(prev === 'present' && state === 'absent')
+        ) {
+          map[L] = state;
+        }
+      }
+    }
+    return map;
+  }, [rows, curRow, letters]);
 
   const keyPressed = (key: string) => {
     const updatedRows = copyArray(rows);
@@ -76,52 +119,62 @@ export default function GameBoard({
     }
   };
 
-  function isCurrentBox(i: React.Key, j: React.Key) {
-    return i == curCol && j == curRow;
-  }
-
-  function getCellBGColor(letter: string, row: number, col: number) {
-    if (row >= curRow) {
-      return '#2c2c2c';
-    }
-    if (letter === letters[col]?.toUpperCase()) {
-      return '#538D4E';
-    }
-    if (letters.includes(letter.toUpperCase())) {
-      return '#B59F3B';
-    }
-    return '#585858';
-  }
-
   return (
     <Container>
       <Header />
       <Board>
         <Col>
-          {rows.map((items, index) => {
-            return (
-              <Row key={index}>
-                {items.map((letter: string, subIndex: React.Key) => {
-                  return (
-                    <LetterBox
-                      isActive={isCurrentBox(subIndex, index)}
-                      key={subIndex}
-                      BGColor={getCellBGColor(
-                        letter,
-                        index,
-                        subIndex as number
-                      )}
+          {rows.map((items, rowIndex) => (
+            <Row key={rowIndex}>
+              {items.map((letter: string, colIndex: number) => {
+                const isSubmitted = rowIndex < curRow;
+                const isActive =
+                  rowIndex === curRow && colIndex === curCol - 1;
+                const filled = letter !== '';
+                const state: LetterState = isSubmitted
+                  ? getCellColor(letter, colIndex, letters)
+                  : 'empty';
+
+                return (
+                  <View
+                    key={colIndex}
+                    style={{
+                      width: tileSize,
+                      height: tileSize,
+                      backgroundColor: BG[state],
+                      borderWidth: 2,
+                      borderColor: isSubmitted
+                        ? BG[state]
+                        : filled
+                        ? '#565758'
+                        : isActive
+                        ? '#818384'
+                        : '#3A3A3C',
+                      borderRadius: 6,
+                      borderCurve: 'continuous',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    <Text
+                      selectable={false}
+                      style={{
+                        color: 'white',
+                        fontSize: Math.floor(tileSize * 0.55),
+                        fontWeight: '800',
+                        textAlign: 'center'
+                      }}
                     >
                       {letter.toUpperCase()}
-                    </LetterBox>
-                  );
-                })}
-              </Row>
-            );
-          })}
+                    </Text>
+                  </View>
+                );
+              })}
+            </Row>
+          ))}
         </Col>
       </Board>
-      <KeyBoard onKeyPress={(key: string) => keyPressed(key)} />
+      <KeyBoard onKeyPress={keyPressed} keyStates={keyStates} />
     </Container>
   );
 }
