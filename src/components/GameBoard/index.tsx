@@ -102,6 +102,7 @@ export default function GameBoard({
         return;
       }
       if (curRow >= NUMBER_OF_TRIES - 1) {
+        setGameId();
         navigate('postgame', { status: 'tryagain' });
         return;
       }

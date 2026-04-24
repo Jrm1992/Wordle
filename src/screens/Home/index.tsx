@@ -14,7 +14,11 @@ export default function Home() {
       edges={['top', 'bottom']}
       style={{ flex: 1, backgroundColor: '#000' }}
     >
-      <GameBoard Word={word} setGameId={() => setGameId(gameId + 1)} />
+      <GameBoard
+        key={gameId}
+        Word={word}
+        setGameId={() => setGameId(gameId + 1)}
+      />
     </SafeAreaView>
   );
 }
