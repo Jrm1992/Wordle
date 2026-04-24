@@ -1,8 +1,8 @@
 import React from 'react';
 import { Pressable, Text, View, useWindowDimensions } from 'react-native';
 
-import { Backspace } from 'phosphor-react-native';
 import * as Haptics from 'expo-haptics';
+import { Backspace } from 'phosphor-react-native';
 
 export type LetterState = 'empty' | 'correct' | 'present' | 'absent';
 
@@ -34,7 +34,7 @@ export default function KeyBoard({
 
   const handlePress = (key: string) => {
     if (process.env.EXPO_OS === 'ios') {
-      Haptics.selectionAsync().catch(() => {});
+      void Haptics.selectionAsync().catch(() => undefined);
     }
     onKeyPress(key);
   };

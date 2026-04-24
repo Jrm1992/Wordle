@@ -56,7 +56,7 @@ export default function GameBoard({
     );
     setCurCol(0);
     setCurRow(0);
-  }, [Word]);
+  }, [Word, letters.length]);
 
   const tileSize = Math.min(
     62,
@@ -71,10 +71,7 @@ export default function GameBoard({
         if (!L) continue;
         const state = getCellColor(L, c, letters);
         const prev = map[L];
-        if (
-          prev !== 'correct' &&
-          !(prev === 'present' && state === 'absent')
-        ) {
+        if (prev !== 'correct' && !(prev === 'present' && state === 'absent')) {
           map[L] = state;
         }
       }
@@ -129,8 +126,7 @@ export default function GameBoard({
             <Row key={rowIndex}>
               {items.map((letter: string, colIndex: number) => {
                 const isSubmitted = rowIndex < curRow;
-                const isActive =
-                  rowIndex === curRow && colIndex === curCol - 1;
+                const isActive = rowIndex === curRow && colIndex === curCol - 1;
                 const filled = letter !== '';
                 const state: LetterState = isSubmitted
                   ? getCellColor(letter, colIndex, letters)

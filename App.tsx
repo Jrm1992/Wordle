@@ -1,6 +1,8 @@
 import React from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { Loading } from './src/components/Loading';
+
 import { Routes } from './src/routes';
 
 import {
@@ -11,7 +13,6 @@ import {
   useFonts
 } from '@expo-google-fonts/inter';
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
   const [fontsLoaded] = useFonts({

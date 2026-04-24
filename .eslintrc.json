@@ -1,8 +1,10 @@
 {
   "env": {
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "node": true
   },
+  "ignorePatterns": ["node_modules/", "ios/", "android/", "build/", "dist/"],
   "settings": {
     "react": {
       "version": "detect"
@@ -15,7 +17,14 @@
     "plugin:prettier/recommended",
     "prettier"
   ],
-  "overrides": [],
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    }
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
