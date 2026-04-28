@@ -9,6 +9,7 @@
     "web": "expo start --web",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.ts,.tsx --fix",
+    "typecheck": "tsc --noEmit",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "dependencies": {
@@ -36,7 +37,8 @@
     "@react-native-community/eslint-config": "^3.2.0",
     "@types/react": "~19.2.10",
     "@types/react-native-vector-icons": "^6.4.13",
-    "@typescript-eslint/eslint-plugin": "^5.54.0",
+    "@typescript-eslint/eslint-plugin": "^8.20.0",
+    "@typescript-eslint/parser": "^8.20.0",
     "commitizen": "4.3.0",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^8.35.0",
