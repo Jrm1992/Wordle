@@ -4,6 +4,7 @@ import { Linking } from 'react-native';
 import { Loading } from '../components/Loading';
 
 import { AuthProvider, useAuth } from '../hooks/useAuth';
+import { ToastProvider } from '../hooks/useToast';
 import { supabase } from '../lib/supabase';
 import { AppRoutes } from './app.routes';
 import { AuthRoutes } from './auth.routes';
@@ -76,9 +77,11 @@ export function Routes() {
   return (
     <Container>
       <AuthProvider>
-        <NavigationContainer>
-          <RoutesInner />
-        </NavigationContainer>
+        <ToastProvider>
+          <NavigationContainer>
+            <RoutesInner />
+          </NavigationContainer>
+        </ToastProvider>
       </AuthProvider>
     </Container>
   );
