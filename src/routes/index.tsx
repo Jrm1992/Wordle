@@ -33,7 +33,7 @@ function isResetLink(url: string): boolean {
 }
 
 function RoutesInner() {
-  const { session, initializing } = useAuth();
+  const { session, loading } = useAuth();
   const [pendingReset, setPendingReset] = useState(false);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ function RoutesInner() {
     if (!session && pendingReset) setPendingReset(false);
   }, [session, pendingReset]);
 
-  if (initializing) return <Loading />;
+  if (loading) return <Loading />;
   if (!session) return <AuthRoutes />;
   return (
     <AppRoutes initialRouteName={pendingReset ? 'resetPassword' : 'home'} />
