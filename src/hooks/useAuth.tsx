@@ -19,7 +19,7 @@ type Result = { error: AuthError | null };
 type AuthCtx = {
   session: Session | null;
   user: User | null;
-  initializing: boolean;
+  loading: boolean;
   signIn: (email: string, password: string) => Promise<Result>;
   signUp: (email: string, password: string) => Promise<Result>;
   signOut: () => Promise<Result>;
@@ -32,7 +32,7 @@ const Ctx = createContext<AuthCtx | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
-  const [initializing, setInitializing] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let mounted = true;
@@ -44,7 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setSession(data.session);
       })
       .finally(() => {
-        if (mounted) setInitializing(false);
+        if (mounted) setLoading(false);
       });
 
     const { data } = supabase.auth.onAuthStateChange((_event, next) => {
@@ -61,7 +61,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     () => ({
       session,
       user: session?.user ?? null,
-      initializing,
+      loading,
       signIn: async (email, password) => {
         const { error } = await supabase.auth.signInWithPassword({
           email: normalizeEmail(email),
@@ -101,7 +101,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return { error };
       }
     }),
-    [session, initializing]
+    [session, loading]
   );
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
